@@ -27,9 +27,10 @@ class MainViewModel(
     val restartVisible: StateFlow<Boolean> = _restartVisible
 
     fun startGame() {
+        cardsLeft.clear()
         cardsLeft.addAll(deckClass.populateDeck())
         addCards(12)
-        for (i in 0..15) {
+        for (i in 0..14) {
             _cardsSelected.value = (_cardsSelected.value + false).toMutableList()
         }
     }
@@ -51,7 +52,7 @@ class MainViewModel(
         if (numCardsSelected == 3) {
             numCardsSelected = 0
             val listIndices = mutableListOf<Int>()
-            for (i in 0..15) {
+            for (i in 0..14) {
                 if (_cardsSelected.value[i]) {
                     listIndices.add(i)
                     _cardsSelected.value[i] = false
@@ -109,6 +110,9 @@ class MainViewModel(
             }
             _restartVisible.value = true
         }
+        else if (_cardsShown.value.size == 15) {
+            _validateSetText.value = "There are already 15 cards shown!"
+        }
         else {
             addCards(3)
         }
@@ -121,7 +125,7 @@ class MainViewModel(
         startGame()
         _restartVisible.value = false
     }
-    //clean up padding nums, clean up strings, clean up design/font/color, better pics (hard to see striped vs solid)
-    //card border wont turn red (turns red when no sets button), always start with same cards idk, testing
+    //clean up padding nums, clean up strings, clean up design/font/color, pics clearer but still kinda weird
+    //card border wont turn red (turns red when no sets button), testing
     //validation screen other fragment, later animation for putting new cards
 }
