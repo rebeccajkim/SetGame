@@ -1,6 +1,7 @@
 package com.example.setgame
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import com.example.setgame.DeckRepo.SetResult.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,8 +13,7 @@ class MainViewModel(
     private val cardsLeft = mutableListOf<CardClass>()
     private val _cardsShown = MutableStateFlow(mutableListOf<CardClass>())
     val cardsShown: StateFlow<List<CardClass>> = _cardsShown
-    private val _cardsSelected = MutableStateFlow(mutableListOf<Boolean>())
-    val cardsSelected: StateFlow<List<Boolean>> = _cardsSelected
+    val cardsSelected = mutableStateListOf<Boolean>()
     private var numCardsSelected = 0
     private val _validateSetText = MutableStateFlow<String>("")
     val validateSetText: StateFlow<String> = _validateSetText
@@ -31,7 +31,7 @@ class MainViewModel(
         cardsLeft.addAll(deckClass.populateDeck())
         addCards(12)
         for (i in 0..14) {
-            _cardsSelected.value = (_cardsSelected.value + false).toMutableList()
+            cardsSelected.add(false)
         }
     }
     fun addCards(numCards: Int) { //12 cards at first, 3 if no sets, 3 to replace set
@@ -39,23 +39,22 @@ class MainViewModel(
         cardsLeft.removeIf { i -> _cardsShown.value.contains(i) }
     }
     fun onCardSelected(i: Int) {
-        if (!_cardsSelected.value[i]) {
-            _cardsSelected.value[i] = true
+        cardsSelected[i] = !cardsSelected[i]
+        if (cardsSelected[i]) {
             numCardsSelected += 1
         }
         else {
-            _cardsSelected.value[i] = false
             numCardsSelected -= 1
         }
-        var v = _cardsSelected.value
-        Log.i("idk", "$v")
+        val v = cardsSelected[i]
+        Log.i("idk", "$v and $numCardsSelected")
         if (numCardsSelected == 3) {
             numCardsSelected = 0
             val listIndices = mutableListOf<Int>()
             for (i in 0..14) {
-                if (_cardsSelected.value[i]) {
+                if (cardsSelected[i]) {
                     listIndices.add(i)
-                    _cardsSelected.value[i] = false
+                    cardsSelected[i] = false
                 }
             }
             validateSet(mutableListOf<CardClass>(_cardsShown.value[listIndices[0]],

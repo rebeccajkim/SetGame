@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val cardsShown by viewModel.cardsShown.collectAsState()
-            val cardsSelected by viewModel.cardsSelected.collectAsState()
+            val cardsSelected = viewModel.cardsSelected
             val validateSetText by viewModel.validateSetText.collectAsState()
             val playerOneScore by viewModel.playerOneScore.collectAsState()
             val playerTwoScore by viewModel.playerTwoScore.collectAsState()
