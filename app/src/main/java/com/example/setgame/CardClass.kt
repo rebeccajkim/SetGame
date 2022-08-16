@@ -31,4 +31,8 @@ class CardClass(): CardInterface {
     fun getNumber(): CardInterface.NumberValue {
         return number
     }
+
+    override fun toString(): String {
+        return "$color, $shading, $shape, $number;"
+    }
 }

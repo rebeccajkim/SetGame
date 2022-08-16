@@ -1,6 +1,5 @@
 package com.example.setgame
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import com.example.setgame.DeckRepo.SetResult.*
@@ -34,7 +33,7 @@ class MainViewModel(
             cardsSelected.add(false)
         }
     }
-    fun addCards(numCards: Int) { //12 cards at first, 3 if no sets, 3 to replace set
+    fun addCards(numCards: Int) {
         _cardsShown.value = (_cardsShown.value + cardsLeft.asSequence().shuffled().take(numCards)).toMutableList()
         cardsLeft.removeIf { i -> _cardsShown.value.contains(i) }
     }
@@ -46,8 +45,6 @@ class MainViewModel(
         else {
             numCardsSelected -= 1
         }
-        val v = cardsSelected[i]
-        Log.i("idk", "$v and $numCardsSelected")
         if (numCardsSelected == 3) {
             numCardsSelected = 0
             val listIndices = mutableListOf<Int>()
@@ -124,7 +121,4 @@ class MainViewModel(
         startGame()
         _restartVisible.value = false
     }
-    //clean up padding nums, clean up strings, clean up design/font/color, pics clearer but still kinda weird
-    //card border wont turn red (turns red when no sets button), testing
-    //validation screen other fragment, later animation for putting new cards
 }

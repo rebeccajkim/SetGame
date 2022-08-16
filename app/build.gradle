@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.example.setgame'
-    compileSdk 32
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.example.setgame"
         minSdk 24
-        targetSdk 32
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -48,16 +48,16 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    implementation 'androidx.activity:activity-compose:1.5.1'
     implementation "androidx.compose.ui:ui:$compose_ui_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
     implementation 'androidx.compose.material:material:1.2.0-beta01'
     implementation "io.insert-koin:koin-core:3.1.6"
     implementation "io.insert-koin:koin-android:3.1.6"
     implementation "io.insert-koin:koin-android-compat:3.1.6"
-    implementation "io.insert-koin:koin-androidx-workmanager:3.1.6"
+    //implementation "io.insert-koin:koin-androidx-workmanager:3.1.6"
     implementation "io.insert-koin:koin-androidx-navigation:3.1.6"
     testImplementation 'junit:junit:4.13.2'
     testImplementation "io.insert-koin:koin-test:3.1.6"
